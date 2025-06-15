@@ -1,0 +1,7 @@
+[build]
+  publish = "docs"
+  command = ""
+
+[dev]
+  port = 8080
+  command = ""

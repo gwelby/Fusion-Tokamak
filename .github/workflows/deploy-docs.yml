@@ -1,0 +1,30 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Pandoc & LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-xetex
+
+      - name: Generate HTML & PDF
+        run: |
+          pandoc docs/PhiHarmonics_KNOW.md --standalone --toc -o docs/PhiHarmonics_KNOW.html
+          pandoc docs/PhiHarmonics_KNOW.md --pdf-engine=xelatex --toc -o docs/PhiHarmonics_KNOW.pdf
+
+      - name: Upload docs folder
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: docs
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v1
