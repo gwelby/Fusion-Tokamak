@@ -16,6 +16,8 @@ This project explores nuclear fusion technology with a focus on tokamak reactors
 - Princeton Plasma Physics Laboratory: https://www.pppl.gov/
 - Fusion research publications: https://journals.aps.org/prl/
 - EU Fusion Programme: https://www.euro-fusion.org/
+- Knowledge Base: docs/PhiHarmonics_KNOW.md
+- Simulation Results: simulation/CONCEPTUAL_SIMULATION_RESULTS.md
 
 ## Research Areas
 1. Plasma Stability and Confinement
