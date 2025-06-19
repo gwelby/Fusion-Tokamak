@@ -1,3 +1,6 @@
 EQDSK PHI_SPIRAL=ON
-; Auto-generated 2025-06-15
+! φ-harmonic eqdsk header
+ASPECT_RATIO 1.618
+ELONGATION 0.809
+; Auto-generated 2025-06-17
 ; TODO: replace with actual equilibrium data

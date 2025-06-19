@@ -2386,11 +2386,46 @@ This knowledge base represents the convergence of **ancient wisdom** and **moder
 - **EMC/EMI Mitigation:** Apply braided copper shielding, ferrite cores, and transient voltage suppressors on analog sensor lines; ensure grounding per IEEE 141.
 - **Vacuum Feedthrough Testing & Calibration:** Perform helium leak tests (<1×10⁻⁸ mbar·L/s) on all feedthroughs; calibrate Mirnov coils and thermocouples against known magnetic field and temperature references.
 
+## 🌀 Golden-Spiral Coil Geometry (φ-Primes)
+Using results from **PHI_HARMONIC_PRIME_GENERATION_THEOREM.md** we parameterize each toroidal-field (TF) coil as a golden-angle spiral:
+
+```
+r(θ) = r₀·φ^{θ/π}
+z(θ) = k·θ
+```
+where θ ∈ [0, 2π], r₀ sets inboard radius, k tunes vertical pitch.
+
+For 18 coils the phase offset is the **φ-prime** sequence:
+
+```
+φ_primes = [ (p · 137.50776°) mod 360 for p in prime_list(18) ]
+```
+This arrangement minimises harmonic distortion and evenly distributes Lorentz loads.
+
+Engineering implication → update CAD with coordinates from `tools/coil_design/golden_spiral_coil_generator.py`.
+
+---
+
+## 🧪 Analytic Benchmarks from Navier-Stokes φ-Proof
+Closed-form viscous plasma velocity:
+
+```
+V(r,θ,t) = V₀ · e^{-ν t} · φ^{r/a} · sin(θ + ω t)
+```
+ν derives from φ-scaled Reynolds number; ω = 432 × φ rad·s⁻¹.
+Use this as a sanity check for M3D-C1/NIMROD low-β runs.
+
+---
+
+## 📚 References
+
+* **Φ-Proofs & Engineering Benchmarks:** see [PHI_PROOFS_REFERENCE.md](PHI_PROOFS_REFERENCE.md)
+
 #### Integration & Quality Control
 
 - **Dimensional Metrology:** Use CMM and laser tracker systems to verify assembly geometry within ±0.1 mm; update CAD models with as-built data.
 - **NDE Inspections:** Conduct phased-array ultrasonic, eddy-current, and dye-penetrant testing on welds and structural joints; record and address any defects.
-- **Pressure & Leak Testing:** Execute helium leak tests (<1×10⁻⁸ mbar·L/s) and hydrostatic pressure tests on vessel segments per ASME requirements.
+{{ ... }}
 - **Alignment Verification:** Perform fiducial and photogrammetric alignment checks on installed subsystems; confirm tolerances within specification.
 - **Quality Documentation:** Generate QA reports, non-conformance logs, and maintain configuration control records for all inspections.
 

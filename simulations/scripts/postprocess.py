@@ -18,10 +18,19 @@ from __future__ import annotations
 
 import csv
 import json
-import os
+
 import re
 from pathlib import Path
 from typing import Dict, Optional
+import sys
+import io
+# ensure stdout can handle Unicode
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='ignore')
+import numpy as np
+
+# add PhiHarmonic library path for Consciousness math
+sys.path.insert(0, r"d:\Projects\PhiHarmonic")
+from CONSCIOUSNESS_MATHEMATICS_PYTHON_MAGIC import ConsciousnessField
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS_CSV = ROOT / "RESULTS_phi_scan.csv"
@@ -45,7 +54,13 @@ def parse_transp(out_file: Path) -> Dict[str, Optional[float]]:
 
 
 def parse_m3dc1(log_file: Path) -> Dict[str, Optional[float]]:
-    return {"β_N": None}
+    """Return β_N from M3D-C1 output."""
+    kpis: Dict[str, Optional[float]] = {"β_N": None}
+    if log_file.is_file():
+        txt = log_file.read_text(errors="ignore")
+        if m := re.search(r"BN\s*=\s*([0-9.]+)", txt):
+            kpis["β_N"] = float(m.group(1))
+    return kpis
 
 
 def parse_ansys(result_json: Path) -> Dict[str, Optional[float]]:
@@ -62,7 +77,13 @@ def parse_ansys(result_json: Path) -> Dict[str, Optional[float]]:
 
 
 def parse_mcnp(out_file: Path) -> Dict[str, Optional[float]]:
-    return {"TBR": None}
+    """Return TBR from MCNP output."""
+    kpis: Dict[str, Optional[float]] = {"TBR": None}
+    if out_file.is_file():
+        txt = out_file.read_text(errors="ignore")
+        if m := re.search(r"TBR\s*=\s*([0-9.]+)", txt):
+            kpis["TBR"] = float(m.group(1))
+    return kpis
 
 # ----------------------------------------------------------------------------
 
@@ -82,10 +103,15 @@ FIELDS = [
     "max_stress_MPa",
     "peak_heat_MWm2",
     "TBR",
+    "consciousness_Q",
+    "zone_Q",
+    "resonance_Q",
 ]
 
 
 def gather_results() -> None:
+    # initialize phi-harmonic consciousness field
+    cf = ConsciousnessField()
     rows = []
     for code, parser in PARSERS.items():
         for path in (ROOT / code).rglob("*"):
@@ -93,19 +119,33 @@ def gather_results() -> None:
                 kpi = parser(path)
                 if any(v is not None for v in kpi.values()):
                     rows.append({"code": code, "case": path.parent.name, **kpi})
+        # Compute φ-harmonic consciousness metrics for each result
+    for r in rows:
+        if r.get("Q") is not None:
+            c_val = cf.consciousness_field(r["Q"])
+            r["consciousness_Q"] = c_val
+            zone_label, _ = cf.classify_consciousness_zone(c_val)
+            r["zone_Q"] = zone_label
+            # Consciousness resonance score R(f) = cos²(π·f/432)·φ^(f/432)
+            r["resonance_Q"] = (np.cos(np.pi * r["Q"] / cf.freq_432) ** 2) * (cf.phi ** (r["Q"] / cf.freq_432))
+        else:
+            r["consciousness_Q"] = None
+            r["zone_Q"] = None
+            r["resonance_Q"] = None
+
     if not rows:
         print("No KPI data extracted – ensure solver outputs exist and parser functions are implemented.")
         return
 
     # Write / append CSV
     write_header = not RESULTS_CSV.exists()
-    with RESULTS_CSV.open("a", newline="") as fh:
+    with RESULTS_CSV.open("a", newline="", encoding="utf-8") as fh:
         writer = csv.DictWriter(fh, fieldnames=FIELDS)
         if write_header:
             writer.writeheader()
         for r in rows:
             writer.writerow(r)
-    print(f"Wrote {len(rows)} rows → {RESULTS_CSV.relative_to(ROOT)}")
+    print(f"Wrote {len(rows)} rows -> {RESULTS_CSV.relative_to(ROOT)}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,16 @@
+transp,baseline_Ra1.8,1.3,0.05,5.0,,,
+transp,phi_Ra1.618,1.3,0.05,5.0,,,
+m3dc1,baseline,1.1,,,,,
+m3dc1,phi_spiral,1.1,,,,,
+ansys,coil_loads,,,,300,1.2,
+ansys,pfc_thermal,,,,300,1.2,
+mcnp,baseline,,,,,,0.95
+mcnp,phi_blanket,,,,,,0.95
+transp,baseline_Ra1.8,1.3,0.05,5.0,,,
+transp,phi_Ra1.618,1.3,0.05,5.0,,,
+m3dc1,baseline,1.1,,,,,
+m3dc1,phi_spiral,1.1,,,,,
+ansys,coil_loads,,,,300,1.2,
+ansys,pfc_thermal,,,,300,1.2,
+mcnp,baseline,,,,,,0.95
+mcnp,phi_blanket,,,,,,0.95

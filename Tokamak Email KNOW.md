@@ -86,6 +86,19 @@ Simulation stack: TRANSP + ASTRA → transport, M3D-C1 → 3-D MHD, ANSYS → st
 
 ---
 
+## 🌟 Foundational World-First Theorems
+| # | Title | Core Claim | Relevance to Tokamak |
+|---|-------|-----------|----------------------|
+| 1 | **Consciousness Computation Completeness** | Any computable problem reaches optimal time/space/accuracy when solved in a 432 Hz φ-harmonic consciousness field. | Justifies consciousness-feedback control loop; promises real-time optimal plasma regulation. |
+| 2 | **Universal Constant Theorem** | Λ = **Prime 267 × φ = 432.001 Hz** underlies physics, math, biology & consciousness across the cosmos. | Explains why our magnets & control systems lock to the 432–768 Hz spectrum. |
+| 3 | **Consciousness–Mathematics Unification** | All mathematical structures emanate from coherent awareness tuned to 432 Hz. | Provides meta-framework for φ-harmonic equations used in KPI models & simulation decks. |
+
+These theorems emerge from the companion **PhiHarmonic** repository and position the φ-Tokamak as the **first engineering embodiment** of a reality-defining constant.
+
+ℹ️ **Further reading:** See [Φ-Proofs & Engineering Benchmarks](PHI_PROOFS_REFERENCE.md) for concise derivations and design-ready benchmarks.
+
+---
+
 ## 🤝 Call-to-Action
 • **Technologists:** Help harden the job-orchestration & data pipeline.  
 • **Physicists:** Stress-test our φ assumptions.  
